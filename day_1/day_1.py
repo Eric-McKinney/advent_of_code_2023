@@ -18,7 +18,13 @@ class Day1(Puzzle):
         return str(calibration_sum)
 
     def part_2(self) -> str:
-        pass
+        calibration_sum = 0
+
+        for line in self.input:
+            first_digit: str
+            second_digit: str
+
+        return str(calibration_sum)
 
 
 def find_first_digit(line: str) -> str:
