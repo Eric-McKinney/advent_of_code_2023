@@ -1,8 +1,9 @@
 import sys
 from day_1 import day_1
+from day_2 import day_2
 
 
-DAY = 1
+DAY = 2
 
 
 class Puzzle:
@@ -36,6 +37,8 @@ def main():
     match DAY:
         case 1:
             puzzle = day_1.Day1(p_input)
+        case 2:
+            puzzle = day_2.Day2(p_input)
         case _:
             print("INVALID DAY", file=sys.stderr)
             raise SystemExit
