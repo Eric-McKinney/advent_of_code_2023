@@ -1,4 +1,4 @@
-from main import Puzzle
+from puzzle_interface import Puzzle
 
 
 class Day1(Puzzle):
