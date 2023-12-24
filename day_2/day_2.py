@@ -35,6 +35,25 @@ class Day2(Puzzle):
 
         for line in self.input:
             game_data = parse_line(line)
+            lowest_possible_cubes = {
+                "red": 0,
+                "green": 0,
+                "blue": 0
+            }
+
+            for record in game_data[1:]:
+                for cube_count in record:
+                    cube_count = cube_count.split()
+                    count = int(cube_count[0])
+                    color = cube_count[1]
+
+                    if lowest_possible_cubes[color] < count:
+                        lowest_possible_cubes[color] = count
+
+            power = lowest_possible_cubes["red"]*lowest_possible_cubes["green"]*lowest_possible_cubes["blue"]
+            power_sum += power
+
+        return str(power_sum)
 
 
 def parse_line(line: str) -> list[str]:
