@@ -2,9 +2,10 @@ import sys
 from puzzle_interface import Puzzle
 from day_1 import day_1
 from day_2 import day_2
+from day_3 import day_3
 
 
-DAY = 2
+DAY = 3
 
 
 def read_puzzle_input() -> list[str]:
@@ -23,6 +24,8 @@ def main():
             puzzle = day_1.Day1(p_input)
         case 2:
             puzzle = day_2.Day2(p_input)
+        case 3:
+            puzzle = day_3.Day3(p_input)
         case _:
             print("INVALID DAY", file=sys.stderr)
             raise SystemExit
