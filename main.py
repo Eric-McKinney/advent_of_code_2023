@@ -18,6 +18,7 @@ def read_puzzle_input() -> list[str]:
 def main():
     puzzle: Puzzle
     p_input = read_puzzle_input()
+    print(f"Day {DAY}\n")
 
     match DAY:
         case 1:
