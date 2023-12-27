@@ -55,4 +55,4 @@ class Day3(Puzzle):
 
 
 def is_symbol(char: str) -> bool:
-    return not char.isdigit() and char != "."
+    return not char.isdigit() and char != "." and char != "\n"
