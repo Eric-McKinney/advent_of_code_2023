@@ -10,7 +10,14 @@ class Day3(Puzzle):
         prev_y = 0
         for y, line in enumerate(self.input):
             for x, char in enumerate(line):
-                if char.isdigit() and y == prev_y:
+                if char.isdigit():
+                    if y != prev_y:
+                        if is_part_num:
+                            part_num_sum += int(num_str)
+
+                        num_str = ""
+                        is_part_num = False
+
                     num_str += char
 
                     if self.has_symbol_adjacent(x, y):
