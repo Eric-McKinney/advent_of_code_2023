@@ -34,7 +34,27 @@ class Day3(Puzzle):
         return str(part_num_sum)
 
     def part_2(self) -> str:
-        pass
+        gear_ratio_sum = 0
+        asterisk_coords = []
+
+        for y, line in enumerate(self.input):
+            for x, char in enumerate(line):
+                if char == "*":
+                    asterisk_coords.append((x, y))
+
+        for x, y in asterisk_coords:
+            surrounding_coords = [(x - 1, y - 1), (x, y - 1), (x + 1, y - 1),
+                                  (x - 1, y), (x + 1, y),
+                                  (x - 1, y + 1), (x, y + 1), (x + 1, y + 1)]
+
+            gear = []
+            part_num_str = ""
+            for s_x, s_y in surrounding_coords:
+                if self.valid_coords(s_x, s_y) and self.input[s_y][s_x].isdigit():
+                    pass
+                    # left of asterisk - move left until non-digit or start of line appending to left end of part_num
+                    # above or below asterisk - append to end of part_num if it's a digit
+                    # right of asterisk - move right until non-digit or end of line (which is a non-digit \n anyways)
 
     def has_symbol_adjacent(self, x: int, y: int) -> bool:
         surrounding_coords = [(x - 1, y - 1), (x, y - 1), (x + 1, y - 1),
