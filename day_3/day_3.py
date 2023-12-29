@@ -49,12 +49,32 @@ class Day3(Puzzle):
 
             gear = []
             part_num_str = ""
+            prev_y = surrounding_coords[0][1]
             for s_x, s_y in surrounding_coords:
+                if s_y != prev_y and part_num_str != "":
+                    gear.append(int(part_num_str))
+                    part_num_str = ""
+
                 if self.valid_coords(s_x, s_y) and self.input[s_y][s_x].isdigit():
-                    pass
-                    # left of asterisk - move left until non-digit or start of line appending to left end of part_num
-                    # above or below asterisk - append to end of part_num if it's a digit
-                    # right of asterisk - move right until non-digit or end of line (which is a non-digit \n anyways)
+                    if s_x < x:
+                        part_num_str = self.aggregate_number(s_x, s_y, move_right=False)
+                    elif s_x == x:
+                        part_num_str += self.input[s_y][s_x]
+                    else:
+                        part_num_str += self.aggregate_number(s_x, s_y, move_right=True)
+                elif self.valid_coords(s_x, s_y) and part_num_str != "":
+                    gear.append(int(part_num_str))
+                    part_num_str = ""
+
+                prev_y = s_y
+
+            if part_num_str != "":
+                gear.append(int(part_num_str))
+
+            if len(gear) == 2:
+                gear_ratio_sum += gear[0] * gear[1]
+
+        return str(gear_ratio_sum)
 
     def has_symbol_adjacent(self, x: int, y: int) -> bool:
         surrounding_coords = [(x - 1, y - 1), (x, y - 1), (x + 1, y - 1),
@@ -72,6 +92,21 @@ class Day3(Puzzle):
         valid_y = 0 <= y < len(self.input)
 
         return valid_x and valid_y
+
+    def aggregate_number(self, x: int, y: int, move_right: bool) -> str:
+        num_str = ""
+
+        row = y
+        col = x
+        while self.valid_coords(col, row) and self.input[row][col].isdigit():
+            if move_right:
+                num_str += self.input[row][col]
+                col += 1
+            else:
+                num_str = self.input[row][col] + num_str
+                col -= 1
+
+        return num_str
 
 
 def is_symbol(char: str) -> bool:
