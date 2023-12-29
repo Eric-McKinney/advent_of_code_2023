@@ -51,7 +51,7 @@ class Day3(Puzzle):
             part_num_str = ""
             prev_y = surrounding_coords[0][1]
             for s_x, s_y in surrounding_coords:
-                if s_y != prev_y and part_num_str != "":
+                if (s_y != prev_y or prev_y == y) and part_num_str != "":
                     gear.append(int(part_num_str))
                     part_num_str = ""
 
