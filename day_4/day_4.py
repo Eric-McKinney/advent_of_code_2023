@@ -14,21 +14,31 @@ class Day4(Puzzle):
 
     def part_2(self) -> str:
         cards = parse_cards(self.input)
-        total_cards = 0
 
-        card_queue = Queue()
-        for card in range(len(cards)):
-            card_queue.put(card)
+        card_quantities = [1 for _ in range(len(cards))]
 
-        while not card_queue.empty():
-            current_card = card_queue.get()
-            num_winners = count_winning_nums(cards[current_card])
-            next_cards = [n for n in range(current_card + 1, current_card + num_winners + 1)]
+        for idx, card in enumerate(cards):
+            num_winners = count_winning_nums(card)
 
-            for card in next_cards:
-                card_queue.put(card)
+            next_cards_idx = [n for n in range(idx + 1, idx + num_winners + 1)]
+            for n_idx in next_cards_idx:
+                card_quantities[n_idx] += card_quantities[idx]
 
-            total_cards += 1
+        total_cards = sum(card_quantities)
+
+        # card_queue = Queue()
+        # for card in range(len(cards)):
+        #     card_queue.put(card)
+        #
+        # while not card_queue.empty():
+        #     current_card = card_queue.get()
+        #     num_winners = count_winning_nums(cards[current_card])
+        #     next_cards = [n for n in range(current_card + 1, current_card + num_winners + 1)]
+        #
+        #     for card in next_cards:
+        #         card_queue.put(card)
+        #
+        #     total_cards += 1
 
         return str(total_cards)
 
