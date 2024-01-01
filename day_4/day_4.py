@@ -17,7 +17,9 @@ class Day4(Puzzle):
         total_cards = 0
 
         card_queue = Queue()
-        card_queue.put(0)
+        for card in range(len(cards)):
+            card_queue.put(card)
+
         while not card_queue.empty():
             current_card = card_queue.get()
             num_winners = count_winning_nums(cards[current_card])
