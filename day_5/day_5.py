@@ -3,7 +3,22 @@ from puzzle_interface import Puzzle
 
 class Day5(Puzzle):
     def part_1(self) -> str:
-        pass
+        almanac = parse_input(self.input)
+        lowest_location_num = None
+
+        for seed in almanac["seeds"]:
+            soil = get_value_from_map(seed, almanac["seed-to-soil map"])
+            fertilizer = get_value_from_map(soil, almanac["soil-to-fertilizer map"])
+            water = get_value_from_map(fertilizer, almanac["fertilizer-to-water map"])
+            light = get_value_from_map(water, almanac["water-to-light map"])
+            temp = get_value_from_map(light, almanac["light-to-temperature map"])
+            humidity = get_value_from_map(temp, almanac["temperature-to-humidity map"])
+            location = get_value_from_map(humidity, almanac["humidity-to-location map"])
+
+            if lowest_location_num is None or location < lowest_location_num:
+                lowest_location_num = location
+
+        return str(lowest_location_num)
 
     def part_2(self) -> str:
         pass
@@ -12,7 +27,7 @@ class Day5(Puzzle):
 def parse_input(raw_input: list[str]) -> dict:
     almanac = {}
 
-    seeds = raw_input[0].rstrip().split()[1:]
+    seeds = [int(s) for s in raw_input[0].rstrip().split()[1:]]
     almanac["seeds"] = seeds
 
     maps = separate_maps(raw_input)
@@ -56,3 +71,10 @@ def parse_map(m: list[str]) -> dict[int, int]:
             parsed_map[s] = d
 
     return parsed_map
+
+
+def get_value_from_map(key: int, m: dict[int, int]) -> int:
+    if key in m:
+        return m[key]
+
+    return key
