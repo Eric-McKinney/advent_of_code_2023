@@ -49,10 +49,12 @@ def separate_maps(raw_input: list[str]) -> list[list[str]]:
 
         curr_map.append(line)
 
+    maps.append(curr_map)
+
     return maps
 
 
-def parse_map(m: list[str]) -> dict[int, int]:
+def parse_map(m: list[str]) -> dict[str, int]:
     parsed_map = {}
 
     for line in m[1:]:
@@ -61,20 +63,17 @@ def parse_map(m: list[str]) -> dict[int, int]:
         source_range_start = int(line[1])
         range_len = int(line[2])
 
-        destination_range_end = destination_range_start + range_len
-        source_range_end = source_range_start + range_len
-
-        destination_range = range(destination_range_start, destination_range_end)
-        source_range = range(source_range_start, source_range_end)
-
-        for d, s in zip(destination_range, source_range):
-            parsed_map[s] = d
+        parsed_map["destination_range_start"] = destination_range_start
+        parsed_map["destination_range_end"] = destination_range_start + range_len
+        parsed_map["source_range_start"] = source_range_start
+        parsed_map["source_range_end"] = source_range_start + range_len
 
     return parsed_map
 
 
-def get_value_from_map(key: int, m: dict[int, int]) -> int:
-    if key in m:
-        return m[key]
+def get_value_from_map(key: int, m: dict[str, int]) -> int:
+    if key in range(m["source_range_start"], m["source_range_end"]):
+        offset = key - m["source_range_start"]
+        return m["destination_range_start"] + offset
 
     return key
