@@ -30,6 +30,7 @@ def separate_maps(raw_input: list[str]) -> list[list[str]]:
         if line.isspace():
             maps.append(curr_map)
             curr_map = []
+            continue
 
         curr_map.append(line)
 
@@ -37,4 +38,21 @@ def separate_maps(raw_input: list[str]) -> list[list[str]]:
 
 
 def parse_map(m: list[str]) -> dict[int, int]:
-    pass
+    parsed_map = {}
+
+    for line in m[1:]:
+        line = line.rstrip().split()
+        destination_range_start = int(line[0])
+        source_range_start = int(line[1])
+        range_len = int(line[2])
+
+        destination_range_end = destination_range_start + range_len
+        source_range_end = source_range_start + range_len
+
+        destination_range = range(destination_range_start, destination_range_end)
+        source_range = range(source_range_start, source_range_end)
+
+        for d, s in zip(destination_range, source_range):
+            parsed_map[s] = d
+
+    return parsed_map
