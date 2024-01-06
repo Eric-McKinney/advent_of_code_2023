@@ -4,9 +4,10 @@ from day_1 import day_1
 from day_2 import day_2
 from day_3 import day_3
 from day_4 import day_4
+from day_5 import day_5
 
 
-DAY = 4
+DAY = 5
 
 
 def read_puzzle_input() -> list[str]:
@@ -30,6 +31,8 @@ def main():
             puzzle = day_3.Day3(p_input)
         case 4:
             puzzle = day_4.Day4(p_input)
+        case 5:
+            puzzle = day_5.Day5(p_input)
         case _:
             print("INVALID DAY", file=sys.stderr)
             raise SystemExit
